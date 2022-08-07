@@ -18,11 +18,11 @@ function findConfigFile(
   }
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate() {
   const channel = vscode.window.createOutputChannel("API Linter");
   const linter = new APILinter(channel);
 
-  vscode.commands.registerCommand("apiLinter.run", () => {
+  vscode.commands.registerCommand("apiLinter.lint", () => {
     let editor = vscode.window.activeTextEditor;
     if (!editor) {
       return;
@@ -60,8 +60,8 @@ export function activate(context: vscode.ExtensionContext) {
     diagnostics.set(doc.uri, linter.lint(doc.fileName));
   });
 
-  vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
-    vscode.commands.executeCommand("apiLinter.run");
+  vscode.workspace.onDidSaveTextDocument(() => {
+    vscode.commands.executeCommand("apiLinter.lint");
   });
 }
 

@@ -3,7 +3,7 @@
   "description": "Lint Protobuf API files using API Linter",
   "displayName": "API Linter",
   "license": "Apache-2.0",
-  "publisher": "mathematic-inc",
+  "publisher": "mathematic",
   "repository": "https://github.com/mathematic-inc/vscode-api-linter",
   "version": "0.0.1",
   "engines": {
@@ -44,17 +44,18 @@
     },
     "commands": [
       {
-        "command": "apiLinter.run",
-        "title": "API Linter: run on current file"
+        "command": "apiLinter.lint",
+        "title": "API Linter: Lint the current file"
       }
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts"
+    "deploy": "vsce publish --yarn",
+    "lint": "eslint src --ext ts",
+    "pretest": "yarn compile && yarn lint",
+    "vscode:prepublish": "yarn compile",
+    "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
@@ -67,6 +68,7 @@
     "eslint": "^8.21.0",
     "glob": "^8.0.3",
     "mocha": "^10.0.0",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "vsce": "^2.10.0"
   }
 }
