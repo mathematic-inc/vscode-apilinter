@@ -1,0 +1,72 @@
+{
+  "name": "vscode-api-linter",
+  "description": "Lint Protobuf API files using API Linter",
+  "displayName": "API Linter",
+  "license": "Apache-2.0",
+  "publisher": "mathematic-inc",
+  "repository": "https://github.com/mathematic-inc/vscode-api-linter",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "activationEvents": [
+    "onCommand:apiLinter.lint",
+    "onLanguage:proto3",
+    "onLanguage:proto"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "API Linter",
+      "properties": {
+        "apiLinter.command": {
+          "type": "array",
+          "default": [
+            "api-linter"
+          ],
+          "description": "Command to run for API linter."
+        },
+        "apiLinter.configFile": {
+          "type": "string",
+          "default": ".apilinter.yml",
+          "description": "Path to a config file for API linter. If the file does not exist, a config will not be used."
+        },
+        "apiLinter.protoPaths": {
+          "type": "array",
+          "default": [],
+          "description": "Include paths to use for proto imports."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "apiLinter.run",
+        "title": "API Linter: run on current file"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.69.1",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.21.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.4"
+  }
+}
